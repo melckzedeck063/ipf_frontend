@@ -12,12 +12,12 @@ import Header from '../shared/Header';
 // import { GoogleLogin } from 'react-google-login';
 // import FacebookLogin from 'react-facebook-login';
 
-const LoginPage = ({ isOpen, onClose }) => {
+const SignupPage = () => {
   const [succeed, setSucceed] = useState(false);
   const [failed, setFailed] = useState(false);
   const navigate = useNavigate();
 
-  const {login} =  useAuth()
+  const {signup} =  useAuth()
 
   const schema = Yup.object().shape({
     email: Yup
@@ -25,6 +25,15 @@ const LoginPage = ({ isOpen, onClose }) => {
       .required('Email is required')
       .email('Invalid email format')
       .trim(),
+      firstName: Yup
+      .string()
+      .required('firstname is required')
+      .trim(),
+      lastName: Yup
+      .string()
+      .required('lastname is required')
+      .trim(),
+    
     password: Yup
       .string()
       .required('Password is required')
@@ -32,15 +41,13 @@ const LoginPage = ({ isOpen, onClose }) => {
       .trim(),
   });
 
-  // Initialize react-hook-form with Yup resolver
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
 
   const onSubmit = async (data) => {
     try {
-      sessionStorage.removeItem('ipf-token');
-      const response = await login(data)
+      const response = await signup(data)
       setTimeout(() => {
         reset({
           email: "",
@@ -50,12 +57,12 @@ const LoginPage = ({ isOpen, onClose }) => {
 
       const newToken = response;
       console.log(newToken);
-      if (newToken?.data?.token) {
+      if (newToken?.error == false) {
         setSucceed(true);
         setFailed(false);
 
         setTimeout(() => {
-          navigate('/dashboard2');
+          navigate('/login');
           setSucceed(false);
         }, 3000);
       } else {
@@ -87,9 +94,37 @@ const LoginPage = ({ isOpen, onClose }) => {
             {failed && <Alert severity="error">Login failed, please try again.</Alert>}
           </Stack>
         </div>
-        <h1 className="text-2xl font-bold text-center mb-4 text-white dark:text-gray-200">Welcome Back!</h1>
+        <h1 className="text-2xl font-bold text-center mb-4 text-white dark:text-gray-200">Create Account!</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
+              FirstName
+            </label>
+            <input
+              type="firstName"
+              id="firstName"
+              placeholder="firstnamme"
+              className="shadow-sm rounded-md w-full px-3 py-2 border text-black border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              {...register('firstName')}
+            />
+            {errors.firstName && <p className="text-red-500 text-xs">{errors.firstName.message}</p>}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
+              Lastname
+            </label>
+            <input
+              type="lastname"
+              id="lastname"
+              placeholder="lastname"
+              className="shadow-sm rounded-md w-full px-3 py-2 border text-black border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              {...register('lastName')}
+            />
+            {errors.lastName && <p className="text-red-500 text-xs">{errors.lastName.message}</p>}
+          </div>
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
               Email Address
@@ -145,4 +180,4 @@ const LoginPage = ({ isOpen, onClose }) => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;

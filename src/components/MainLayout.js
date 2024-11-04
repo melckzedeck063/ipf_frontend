@@ -4,8 +4,10 @@ import {
     CircularProgress,
     CssBaseline,
 } from '@mui/material';
-import { SideBar } from './SideBar';
-import Sidebar2 from './SideBar2';
+import Sidebar2 from '../shared/SideBar2';
+import Sidebar from '../shared/SideBar';
+import { NavHeader } from '../shared/NavHeader';
+
 
 function MainLayout({ children }) {
     const [loading, setLoading] = useState(true);
@@ -23,15 +25,15 @@ function MainLayout({ children }) {
                 <CssBaseline />
                 <Box
                     className="bg-gray-100"
-                    component="aside" // Change div to aside
+                    component="aside" 
                     sx={{
-                        position: 'sticky', // Make it sticky
+                        position: 'sticky',
                         top: 0,
-                        zIndex: 40, // Adjust zIndex as needed
+                        zIndex: 40,
                        
                     }}
                 >
-                    <Sidebar2 />
+                    <Sidebar />
                 </Box>
 
                 <Box
@@ -40,7 +42,6 @@ function MainLayout({ children }) {
                     sx={{ flexGrow: 1, display: 'flex' }}
                 >
                     {loading ? (
-                        // Show loader if loading is true
                         <Box
                             sx={{
                                 position: 'absolute',
@@ -58,8 +59,8 @@ function MainLayout({ children }) {
                             <CircularProgress />
                         </Box>
                     ) : (
-                        <Box sx={{ width: '100%' }}>
-                            {/* <NavBar2 /> */}
+                        <Box className='ml-8 scroll-my-4' sx={{ width: '100%' }}>
+                            {/* <NavHeader  /> */}
                             {children}
                         </Box>
                     )}

@@ -3,6 +3,8 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard2 from "./pages/Dashboard2";
 import { AuthProvider } from "./context/AuthContext";
+import UserProfile from "./pages/ProfilePage";
+import SignupPage from "./pages/SignupPage";
 
 
 function App() {
@@ -13,7 +15,8 @@ function App() {
       <Route path="/" element={ <LandingPage /> } />
       <Route path="/dashboard2" element={ <Dashboard2 /> } />
       <Route path="/login" element={ <LoginPage /> } />
-      {/* <Route path="/signup" element={Signup} /> */}
+      <Route path="/settings" element={<UserProfile />} />
+      <Route path="/signup" element={<SignupPage />} />
     </Routes>
     </BrowserRouter>
     </AuthProvider>

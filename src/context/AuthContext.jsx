@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const AuthContext = createContext();
 
+const URL1 = "https://www.themoviedb.org/login";
+const URl2 = "http://localhost:9092/auth/login";
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
@@ -17,13 +20,12 @@ export const AuthProvider = ({ children }) => {
     try {
         console.log('Data:', data);
         
-        const response = await axios.post('http://localhost:9092/auth/login', { 
+        const response = await axios.post(URl2, { 
             "username": data.email, 
             "password": data.password 
         });
 
-        const token = response.data.token;
-        localStorage.setItem('fpi-token', token);
+        localStorage.setItem('ipf-token', JSON.stringify(response.data));
         setUser(data.email);
         return response.data
     } catch (error) {
@@ -31,9 +33,40 @@ export const AuthProvider = ({ children }) => {
     }
 };
 
-  const signup = async (email, password) => {
-    await axios.post('http://localhost:9092/auth/signup', { email, password });
+  const signup = async (data) => {
+   const response =  await axios.post('http://localhost:9092/auth/register', { 
+      "username": data.email, 
+      "password": data.password,
+      "firstName" : data.firstName,
+      "lastName" : data.lastName 
+    });
+
+    return response.data
   };
+
+  const profile = async () => {
+    const token = localStorage.getItem('ipf-token');
+    try {
+      const response = await axios.get(
+        'http://localhost:9092/auth/me',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile data:", error);
+      throw error;
+    }
+  };
+  
+  
+
+
+
 
   const logout = () => {
     localStorage.removeItem('fpi-token');

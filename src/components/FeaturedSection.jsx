@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { fetchTrendingMovies, fetchUpcomingMovies } from '../store/apiController';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const FeaturedSection = () => {
   const [featuredMovie, setFeaturedMovie] = useState(null);
@@ -8,7 +9,7 @@ const FeaturedSection = () => {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 4;
   const totalPages = Math.ceil(additionalMovies.length / itemsPerPage);
 
   useEffect(() => {
@@ -35,14 +36,14 @@ const FeaturedSection = () => {
   const goToPrevPage = () => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
 
   return (
-    <div className="bg-gray-900 text-white p-6 mt-6">
+    <div className="bg-gray-900 text-white p-6 mt-6 w-10/12 mx-auto">
         <div className="mt-6 mb-3">
-            <h3 className="font-bold">Featured</h3>
-            <p className="font-medium">Best featured for you today</p>
+            <h3 className="font-bold text-2xl">Featured</h3>
+            <p className="font-medium">Best movies featured for you today</p>
         </div>
       <div className="flex flex-row lg:flex-row justify-between items-start lg:items-center space-y-6 lg:space-y-0 lg:space-x-6">
         
-        {/* Featured Movie */}
+       
         {featuredMovie && (
           <div
             className="flex flex-col lg:w-5/12 bg-cover bg-center p-6 rounded-lg"
@@ -62,38 +63,39 @@ const FeaturedSection = () => {
         )}
 
 
-<div className="">
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+<div className="w-7/12">
+<div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-3 gap-4 mb-4">
   {currentItems.map((movie) => (
-    <div key={movie.id} className="bg-gray-800 rounded-lg p-4">
+    <div key={movie.id} className="rounded-lg relative bg-gradient-to-b from-gray-800 via-transparent to-transparent">
       <img
-        style={{ height: 200, width: '100%' }}
+        style={{ height: 280, width: '100%' }}
         src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
         alt={movie.title}
         className="rounded-lg mb-3 object-cover"
       />
-      <h3 className="text-lg font-semibold">{movie.title}</h3>
+      <div className="absolute top-4 p-1 bg-gradient-to-b from-gray-800 via-transparent to-transparent">
+      <h6 className="font-semibold">{movie.title}</h6>
       <span className="text-yellow-400">⭐ {movie.rating}</span>
+      </div>
     </div>
   ))}
 </div>
 
 
-        {/* Pagination Controls */}
-        <div className="flex justify-between mt-4">
+        <div className="flex flex-row space-x-4">
           <button
             onClick={goToPrevPage}
             disabled={currentPage === 1}
-            className="px-4 py-2 bg-gray-700 rounded disabled:bg-gray-500"
+            className="bg-gray-700 h-10 w-10 mt-8 rounded-full disabled:bg-gray-500"
           >
-            Previous
+            <ArrowBackIos  className='text-lg ml-1'/>
           </button>
           <button
             onClick={goToNextPage}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 bg-gray-700 rounded disabled:bg-gray-500"
+            className="bg-gray-700 h-10 w-10 justify-center items-center rounded-full disabled:bg-gray-500"
           >
-            Next
+            <ArrowForwardIos className='text-lg ml-1' />
           </button>
         </div>
 </div>

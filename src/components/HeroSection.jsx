@@ -37,12 +37,9 @@ const HeroSection = () => {
         className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-75"
       ></div>
       <div className="relative container mx-auto justify-center h-full text-white p-5">
-        <div style={{marginTop : '10rem'}} className="flex-flex-row justify-between">
-            <div className='w-6/12'>
+        <div style={{marginTop : '10rem'}} className="w-7/12 ">
               <h1 className="text-4xl md:text-6xl font-bold ">{movies[currentIndex].title}</h1>
               <p className="mt-4 text-lg md:text-xl">{movies[currentIndex].overview}</p>      
-            </div>
-            <div className='w-6/12'></div>
         </div>
         <div className="mt-6 flex flex-row gap-4">
           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
