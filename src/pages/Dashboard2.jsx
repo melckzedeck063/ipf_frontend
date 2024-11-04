@@ -82,7 +82,7 @@ const Dashboard2 = () => {
                       <th className="py-2 px-4 border-b">Title</th>
                       <th className="py-2 px-4 border-b">Release Date</th>
                       <th className="py-2 px-4 border-b">Popularity</th>
-                      <th className="py-2 px-4 border-b">Popularity</th>
+                      <th className="py-2 px-4 border-b">Votes Count</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -92,7 +92,7 @@ const Dashboard2 = () => {
                           <td className="py-2 px-4 border-b">{movie.title}</td>
                           <td className="py-2 px-4 border-b">{movie.release_date}</td>
                           <td className="py-2 px-4 border-b">{movie.popularity}</td>
-                          <td className="py-2 px-4 border-b">{movie.popularity}</td>
+                          <td className="py-2 px-4 border-b">{movie.vote_count}</td>
                         </tr>
                       ))
                     ) : (
