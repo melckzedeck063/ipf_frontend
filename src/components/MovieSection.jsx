@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { fetchJustReleased, fetchPopularMovies } from '../store/apiController';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import MovieComponent from '../shared/MovieComponent';
+import '../styles/style.css'
+import PopularMovieCard from '../shared/PopularMovieCard';
 
 const MoviePage = () => {
   const [justReleased, setJustReleased] = useState([]);
@@ -8,7 +11,7 @@ const MoviePage = () => {
   
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPage2, setCurrentPage2] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const totalPages = Math.ceil(justReleased.length / itemsPerPage);
   const totalPages2 = Math.ceil(popularMovies.length / itemsPerPage);
 
@@ -48,7 +51,7 @@ const MoviePage = () => {
     <div className="bg-gray-900 text-white p-5 mt-8 w-10/12 mx-auto">
       <section className="mb-10 mx-6">
         <div className="flex felx-row justify-between">
-        <h2 className="text-2xl font-bold mb-4">Just Released</h2>
+        <h2 className="text-2xl font-bold mb-4">Trending Movies</h2>
           <div className="flex flex-row space-x-4">
           <button
             onClick={goToPrevPage}
@@ -66,23 +69,14 @@ const MoviePage = () => {
           </button>
           </div>
         </div>
-        <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+        <div className="movie-grid">
           {currentItems.map((movie) => (
-            <div key={movie.id} className="min-w-[200px]">
-              <img 
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                style={{height : 320}}
-                className="rounded-lg mb-3 w-full"
-              />
-              <h5 className="font-semibold">{movie.title}</h5>
-              <div className="flex items-center space-x-2 text-sm text-yellow-400">
-                <span>⭐ {movie.vote_average}</span>
-                <span>| {movie.genre_ids.join(', ')}</span>
-              </div>
-            </div>
+            <MovieComponent key={movie.id} movie={movie} />
           ))}
         </div>
+
+
       </section>
 
 
@@ -106,29 +100,9 @@ const MoviePage = () => {
           </button>
           </div>
         </div>
-        <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="movie-grid">
           {currentItems2.map((movie, index) => (
-            <div key={movie.id} className="rounded-lg">
-              <div className="flex items-center space-x-4">
-                <h3 className="text-4xl font-bold text-gray-200 mr-3">
-                  {index + 1}
-                </h3>
-                <div className="">
-                  <img
-                  style={{height :200}}
-                    src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-                    alt={movie.title}
-                    className="w-full object-cover rounded-md mb-3"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h6 className="font-semibold">{movie.title}</h6>
-                  <div className="my-1">Lang : {(movie.original_language)}</div>
-                  <div className="text-gray-100">⭐ {movie.vote_average} | Movie</div>
-                  <p className="text-gray-400 text-sm">PG-13 | {movie.genre_ids.join(', ')}</p>
-                </div>
-              </div>
-            </div>
+            <PopularMovieCard  movie={movie} index={index} />
           ))}
         </div>
       </section>

@@ -7,6 +7,8 @@ import FeaturedSection from '../components/FeaturedSection';
 import SeriesSection from '../components/SeriesSection';
 import Header from '../shared/Header';
 import Footer from '../shared/Footer';
+import HeroCarousel from '../components/HeroCarouser';
+import ScrollableImageContainer from '../components/ScrollableImagesCont';
 
 
 export default function LandingPage() {
@@ -28,8 +30,10 @@ export default function LandingPage() {
   return (
     <div className="bg-gray-900 h-full text-white">
       <Header  />
-    
-    <HeroSection />
+
+    <HeroCarousel />
+
+    <ScrollableImageContainer  />
 
     <div className="mx-1 my-4">
     <MoviePage  />

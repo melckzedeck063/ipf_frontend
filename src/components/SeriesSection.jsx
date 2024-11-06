@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { discoverMovies, discoverSeries, fetchJustReleased, fetchPopularMovies, fetchTrendingMovies } from '../store/apiController';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
+import MovieComponent from '../shared/MovieComponent';
+import '../styles/style.css'
 
 const SeriesSection = () => {
   const [justReleased, setJustReleased] = useState([]);
@@ -8,7 +10,7 @@ const SeriesSection = () => {
   
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPage2, setCurrentPage2] = useState(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 5;
   const totalPages = Math.ceil(justReleased.length / itemsPerPage);
   const totalPages2 = Math.ceil(popularMovies.length / itemsPerPage);
 
@@ -67,21 +69,9 @@ const SeriesSection = () => {
           </button>
           </div>
         </div>
-        <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="movie-grid">
           {currentItems2.map((movie, index) => (
-            <div key={movie.id} className="min-w-[200px]">
-            <img 
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              style={{height : 320}}
-              className="rounded-lg mb-3 w-full"
-            />
-            <h5 className="font-semibold">{movie.title}</h5>
-            <div className="flex items-center space-x-2 text-sm text-yellow-400">
-              <span>⭐ {movie.vote_average}</span>
-              <span>| {movie.genre_ids.join(', ')}</span>
-            </div>
-          </div>
+            <MovieComponent movie={movie} />
           ))}
         </div>
       </section>

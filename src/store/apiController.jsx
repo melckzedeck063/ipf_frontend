@@ -123,6 +123,14 @@ export const fetchUpcomingMovies = async () => {
   };
   
 
+  export const fetchProviders = async () => {
+    const response = await fetch(`${BASE_URL}/watch/providers/movie?api_key=${API_KEY}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch trending movies');
+    }
+    const data = await response.json();
+    return data.results;
+  };
 
 
   
