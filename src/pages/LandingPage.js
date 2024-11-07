@@ -29,9 +29,14 @@ export default function LandingPage() {
 
   return (
     <div className="bg-gray-900 h-full text-white">
-      <Header  />
+       <div className="sticky top-0 z-50">
+  <Header />
+    </div>
 
-    <HeroCarousel />
+    <div className="relative z-10 mt-4">
+      <HeroCarousel />
+    </div>
+
 
     <ScrollableImageContainer  />
 

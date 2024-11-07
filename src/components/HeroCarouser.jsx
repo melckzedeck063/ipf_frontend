@@ -37,7 +37,7 @@ const HeroCarousel = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center -z-50 justify-center overflow-hidden">
 
       {movies.map((movie, index) => (
         <div
